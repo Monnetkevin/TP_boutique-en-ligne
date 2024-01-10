@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Discounts;
 use App\Models\Categories;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,11 +22,12 @@ class ProductsFactory extends Factory
         return [
             'title' => $this->faker->words(3, true),
             'description_product' => $this->faker->paragraph(),
-            'image' => 'default_image' . 'jpg',
+            'image' => 'default_image' . '.' . 'png',
             'price' => rand(9.99, 100),
             'quantity' => rand(1, 100),
             'category_id' => rand(1, Categories::count()),
-            'discount_id' => rand(1, Discounts::count())
+            // 'discount_id' => rand(1, Discounts::count()),
+            'user_id' => rand(1, User::count())
         ];
     }
 }

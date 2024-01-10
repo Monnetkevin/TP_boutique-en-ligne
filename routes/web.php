@@ -14,4 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
+
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
+
+Route::resource('/products', App\Http\Controllers\ProductController::class);
+Route::resource('/categories', App\Http\Controllers\CategorieController::class);
+Route::resource('/discounts', App\Http\Controllers\DiscountController::class);

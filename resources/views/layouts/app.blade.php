@@ -18,7 +18,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -29,17 +29,25 @@
 
                     <ul class="navbar-nav me-auto justify-content-center">
                         <li class="nav-item">
-                            <a class="nav-link" href="">{{ __('Homme')}}</a>
+                            <a class="nav-link" href="{{route('home')}}">{{ __('Homme')}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">{{ __('Femmme')}}</a>
+                            <a class="nav-link" href="{{route('home')}}">{{ __('Femmme')}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">{{ __('Enfant')}}</a>
+                            <a class="nav-link" href="{{route('home')}}">{{ __('Enfant')}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">{{ __('Offres')}}</a>
+                            <a class="nav-link" href="{{route('home')}}">{{ __('Offres')}}</a>
                         </li>
+
+                        @if (Auth::user()->role == "admin")
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('products.create')}}">{{ __('Nouveau produit')}}</a>
+                            </li> 
+                        @endif
+
+                        
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -69,7 +77,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
                                   <span><i class="fas fa-shopping-cart"></i></span>
-                                  <span class="badge badge-pill bg-danger">1</span>
+                                  <span class="badge badge-pill bg-danger">0</span>
                                 </a>
                               </li>
 
@@ -80,6 +88,12 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="">Mon compte</a>
+
+                                    @if (Auth::user()->role == "admin")
+                                        <a class="dropdown-item" href="{{route('admin')}}">Administrateur</a>
+                                    @endif
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -98,6 +112,21 @@
         </nav>
 
         <main class="py-4 home">
+            <div class="container text-center">
+                @if (session()->has('message'))
+                    <p class="alert alert-success">{{session()->get('message')}}</p>
+                @endif
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error )
+                                <li> {{$error}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            </div>
             @yield('content')
         </main>
     </div>
