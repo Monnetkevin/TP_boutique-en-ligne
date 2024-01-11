@@ -4,16 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Categories;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategorieController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -56,9 +50,22 @@ class CategorieController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        if (Auth::user()->role == "admin") {
+
+            $categorie = Categories::find($id);
+
+            $request->validate([
+                'category_name' => 'required|max:40'
+            ]);
+            $categorie->category_name = $request->input('category_name');
+            $categorie->save();
+
+            return back()->with('message', 'La catégorie a bien été modifié');
+        } else {
+            return back()->withErrors(['erreur' => 'OUPS problème']);
+        }
     }
 
     /**
@@ -66,9 +73,11 @@ class CategorieController extends Controller
      */
     public function destroy($id)
     {
-        $categorie = Categories::findOrFail($id);
-        $categorie->delete();
+        if (Auth::user()->role == "admin") {
+            $categorie = Categories::findOrFail($id);
+            $categorie->delete();
 
-        return redirect()->route('admin')->with('message', 'suppression de la catégorie');
+            return redirect()->route('admin')->with('message', 'suppression de la catégorie');
+        }
     }
 }

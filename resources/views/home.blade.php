@@ -3,10 +3,41 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-2" style="border: 1px solid red">
 
+        {{-- <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                @foreach ($products as $product )
+                    <div class="carousel-item active">
+                        <img class="d-block w-50" src="/storage/uploads/{{$product->image}}" alt="{{$product->title}}">
+                    </div>
+                @endforeach
+            </div>
+          </div> --}}
+
+        <div class="col-md-2 mt-5 sticky">
+            <h3>Recherche</h3>
+            <form action="{{route('home')}}" method="GET" role="search">
+                {{ csrf_field() }}
+                <div class="form-group mt-5">
+                    <label class="mb-3" for="category_id" class="col-form-label">Categorie: </label>
+                    <select class="form-select" name="q">
+                      <option selected>Selectionne la categorie </option>
+                            @foreach ($categories as $categorie)
+                            <option value="{{$categorie->id}}">
+                                {{ $categorie->category_name}}
+                            </option>
+                            @endforeach
+                    </select>
+                </div>
+                <div class="input-group mt-5">
+                        <button class="btn btn-success ms-4" type="submit">Recherche</button>
+                        <a href="{{route('home')}}" class="btn btn-dark ms-4">Annuler</a>
+                </div>
+
+            </form>
         </div>
-        <div class="col-lg-8 justify-content-center">
+
+        <div class="col-md-8 justify-content-center">
             <div class="row">
                 @foreach ( $products as $product )
                 <div class="col-lg-4 my-4 mb-lg-0">
@@ -19,12 +50,13 @@
                                 <h5>{{$product->title}}</h5>
                                 <p>{{$product->price}} €</p>
                             </div>
-                        
+
                         </div>
                     </div>
                 </div>
                 @endforeach
             </div>
+            {{ $products->withQueryString()->links('pagination::bootstrap-5') }}
         </div>
     </div>
 </div>

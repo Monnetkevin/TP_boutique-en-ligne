@@ -21,8 +21,8 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreignId('category_id')->constrained();
-            // $table->foreignId('discount_id')->constrained();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('discount_id')->nullable()->constrained();
+            $table->foreignId('user_id')->constrained();
         });
     }
 

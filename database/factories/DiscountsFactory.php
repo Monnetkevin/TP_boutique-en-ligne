@@ -18,7 +18,6 @@ class DiscountsFactory extends Factory
     {
         return [
             'discount_name' => $this->faker->words(1, true),
-            'description_discount' => $this->faker->paragraph(),
             'discount_percent' => rand(10, 80),
             'active' => false
         ];

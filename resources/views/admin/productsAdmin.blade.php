@@ -1,5 +1,7 @@
 @extends('layouts.dashboard')
+
 @section('content')
+
 <div class="container">
     <div class="row">
         <div class="col-lg-8 mt-5 m-auto">
@@ -8,20 +10,14 @@
                         <tr>
                         <th scope="col">#</th>
                         <th scope="col">Nom</th>
-                        <th scope="col">Prénom</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Téléphone</th>
-                        <th scope="col">Adresse</th>
-                        <th scope="col">Code postal</th>
-                        <th scope="col">Ville</th>
                         <th scope="col">Action</th>
                         </tr>
                     </thead>
 
-                     @foreach ($users as $user )
+                     {{-- @foreach ($produits as $produits )
                         <tbody>
                             <tr>
-                            <th scope="row">{{$user->id}}</th>
+                            <th>{{$user->id}}</th>
                             <td>{{$user->last_name}}</td>
                             <td>{{$user->first_name}}</td>
                             <td>{{$user->email}}</td>
@@ -38,9 +34,11 @@
                             </td>
                             </tr>
                         </tbody>
-                    @endforeach
+                    @endforeach --}}
                 </table>
+
         </div>
     </div>
 </div>
+
 @endsection

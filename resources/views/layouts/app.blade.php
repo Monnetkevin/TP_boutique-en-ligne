@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'E-commerce Jordan') }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -27,27 +27,19 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
 
-                    <ul class="navbar-nav me-auto justify-content-center">
+                    <ul class="navbar-nav me-auto justify-content-center/">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('home')}}">{{ __('Homme')}}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('home')}}">{{ __('Femmme')}}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('home')}}">{{ __('Enfant')}}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('home')}}">{{ __('Offres')}}</a>
+                            <a class="nav-link" href="{{route('home')}}">{{ __('Accueil')}}</a>
                         </li>
 
-                        @if (Auth::user()->role == "admin")
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('products.create')}}">{{ __('Nouveau produit')}}</a>
-                            </li> 
+                        @if (Auth::check())
+                            @if (Auth::user()->role == "admin")
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('products.create')}}">{{ __('Nouveau produit')}}</a>
+                                </li>
+                            @endif
                         @endif
 
-                        
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -88,7 +80,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="">Mon compte</a>
+                                    <a class="dropdown-item" href="{{route('users.edit', Auth::user()->id)}}">Mon compte</a>
 
                                     @if (Auth::user()->role == "admin")
                                         <a class="dropdown-item" href="{{route('admin')}}">Administrateur</a>
@@ -106,6 +98,7 @@
                                 </div>
                             </li>
                         @endguest
+
                     </ul>
                 </div>
             </div>

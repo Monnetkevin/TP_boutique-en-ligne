@@ -30,7 +30,7 @@
                                         <option value="{{$categorie->id}}">
                                             {{ $categorie->category_name}}
                                         </option>
-                                        
+
                                         @endforeach
                                 </select>
                             </div>
@@ -44,7 +44,7 @@
                                 <label class="my-2" for="price" class="col-form-label">Prix:</label>
                                 <input class="form-control" name="price" id="price" value="{{$product->price}}">
                             </div>
-                           
+
                             {{-- <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="{{$product->discount}}" id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">

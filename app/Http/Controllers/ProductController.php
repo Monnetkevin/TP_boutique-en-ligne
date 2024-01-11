@@ -62,7 +62,7 @@ class ProductController extends Controller
             // 'discount_id' => $request->discount_id,
         ]);
 
-        return redirect()->route('home')->with('message', 'Votre produit a été ajouté avec succès');
+        return redirect()->route('admin')->with('message', 'Votre produit a été ajouté avec succès');
     }
 
     /**

@@ -2,3 +2,11 @@
 //     background-image: url(../../public/images/photo-1600456899121-68eda5705257.avif);
 //     background-size: cover;
 // }
+.card-img-top {
+    height: 450px;
+    object-fit: contain;
+}
+
+.card {
+    height: 500px;
+}
