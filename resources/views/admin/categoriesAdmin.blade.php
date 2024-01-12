@@ -5,10 +5,29 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 mt-5 m-auto">
+
+            <div class="bg-dark text-white rounded p-5 mb-5 ">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active">
+                        <h3>
+                            Nouvelle catégorie
+                        </h3>
+                        <form action="{{route('categories.store')}}" method="POST">
+                            @csrf
+                             <div class="form-group">
+                                <label class="my-2" for="category_name">Nom de la catégorie: </label>
+                                <input type="text" name="category_name" class="form-control">
+                            </div>
+                            <button type="submit" class="btn btn-outline-light rounded-pill mt-3 ">Ajouter</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
                 <table class="table">
                     <thead>
                         <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">Id</th>
                         <th scope="col">Nom</th>
                         <th scope="col">Action</th>
                         </tr>
@@ -20,8 +39,8 @@
                             <th>{{$categorie->id}}</th>
                             <td>{{$categorie->category_name}}</td>
                             <td>
-                                <button type="button" class="btn btn-success btn-small rounded-pill" data-bs-toggle="modal" data-bs-target="#ModalEditCategorie">Editer</button>
-                                <div class="modal fade" id="ModalEditCategorie" tabindex="-1" aria-labelledby="ModalEditCategorieLabel" aria-hidden="true">
+                                <button type="button" class="btn btn-success btn-small rounded-pill" data-bs-toggle="modal" data-bs-target="#ModalEditCategorie{{$categorie->id}}">Editer</button>
+                                <div class="modal fade" id="ModalEditCategorie{{$categorie->id}}" tabindex="-1" aria-labelledby="ModalEditCategorieLabel{{$categorie->id}}" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-body">
@@ -35,7 +54,7 @@
                                                     </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="submit" class="btn btn-success rounded-pill shadow-sm">Editer</button>
+                                                <input type="submit" class="btn btn-success rounded-pill shadow-sm">
                                                 </form>
 
                                                 <button type="button" class="btn btn-secondary rounded-pill shadow-sm" data-bs-dismiss="modal">Retour</button>

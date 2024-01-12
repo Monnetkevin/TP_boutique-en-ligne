@@ -17,17 +17,17 @@ class Products extends Model
         'image',
         'user_id',
         'category_id',
-        // 'discount_id',
+        'discount_id',
     ];
 
     public function productCategory()
     {
         return $this->belongsTo(Categories::class);
     }
-    // public function productDiscount()
-    // {
-    //     return $this->belongsTo(Discounts::class);
-    // }
+    public function productDiscount()
+    {
+        return $this->belongsTo(Discounts::class);
+    }
     public function productUser()
     {
         return $this->belongsTo(User::class);

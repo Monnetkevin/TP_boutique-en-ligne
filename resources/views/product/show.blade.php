@@ -21,6 +21,14 @@
                         <hr class="hr" />
                         <b>prix: </b><p>{{$product->price}}</p>
                     </div>
+
+                    @if ($product->discount_id != NULL)
+                        <div class="my-5">
+                            <hr class="hr" />
+                            <b>Réduction de : </b><p></p>
+                        </div>
+                    @endif
+
                     <button class="btn btn-dark rounded-pill">Ajouter au panier</button>
 
                     @if (Auth::user()->role == "admin")
@@ -46,7 +54,7 @@
                                             <div class="mb-3">
                                                 <label for="price" class="col-form-label">Prix:</label>
                                                 <input type="text" class="form-control" name="price" id="price" value="{{$product->price}}">
-                                            </div>  
+                                            </div>
 
                                             <div class="mb-3">
                                                 <label for="image" class="form-label">Image: </label>
@@ -68,6 +76,42 @@
                                 </div>
                             </div>
                         </div>
+
+                        <button type="button" class="btn btn-warning rounded-pill shadow-sm" data-bs-toggle="modal" data-bs-target="#ModalEditDiscount">Editer une réduction</button>
+                        <div class="modal fade" id="ModalEditDiscount" tabindex="-1" aria-labelledby="ModalEditDiscountLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <form action="{{route('products.applyDiscount', $product->id)}}" method="POST">
+                                            @csrf
+                                            @method('PATCH')
+
+                                            <div class="form-group">
+                                                <label class="my-2" for="discount_id" class="col-form-label">Réduction: </label>
+                                                <select class="form-select" name="discount_id">
+                                                  <option selected>Selectionne la réduction </option>
+                                                        @foreach ($discounts as $discount)
+                                                            <option value="{{$discount->id}}">
+                                                                {{ $discount->discount_name}} avec {{$discount->discount_percent}}
+                                                            </option>
+
+                                                        @endforeach
+                                                </select>
+                                            </div>
+
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-success rounded-pill shadow-sm">Appliquer la réduction</button>
+                                        </form>
+
+                                        <button type="button" class="btn btn-secondary rounded-pill shadow-sm" data-bs-dismiss="modal">Retour</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     @endif
                 </div>
             </div>

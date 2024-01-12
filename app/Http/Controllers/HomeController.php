@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Products;
 use App\Models\Categories;
+use App\Models\Discounts;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -27,31 +28,29 @@ class HomeController extends Controller
     public function index(Request $request)
     {
 
-        $latestProduct = Products::latest()->first();
-        // dd($latestProduct);
+        // $latestProduct = Products::latest()->first();
+        //  dd($latestProduct);
 
-        if ($latestProduct) {
-            $images = $latestProduct->image;
-        } else {
-            $images = collect(); // Si aucun article n'est trouvé, initialisez une collection vide
-        }
+        // if ($latestProduct) {
+        //     $images = $latestProduct->image;
+        // } else {
+        //     $images = collect(); // Si aucun article n'est trouvé, initialisez une collection vide
+        // }
 
         $products = Products::query()
             ->when(
                 $request->q,
                 function (Builder $builder) use ($request) {
                     $builder
-
-                        ->orWhere('category_id', 'like', "%{$request->q}%")
-                        ->orderBy('created_at', 'desc')
+                        ->Where('category_id', 'like', "%{$request->q}%")
+                        ->orderBy('title')
                         ->get();
                 }
             )
+            ->paginate(12);
 
-            ->paginate(9);
-
-        //$products = Products::paginate(12);
         $categories = Categories::all();
-        return view('home', compact('products', 'categories', 'images'));
+        $discounts = Discounts::all();
+        return view('home', compact('products', 'categories'));
     }
 }

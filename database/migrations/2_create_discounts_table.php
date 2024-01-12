@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('discount_name');
             $table->decimal('discount_percent');
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
             $table->boolean('active');
             $table->timestamps();
         });

@@ -18,7 +18,7 @@ class CategoriesFactory extends Factory
     {
         return [
             'category_name' => $this->faker->words(1, true),
-            'icon' => 'default_icon' . rand(1, 5) . 'jpg'
+            'icon' => 'default_icon' . rand(1, 5) . '.jpg'
         ];
     }
 }

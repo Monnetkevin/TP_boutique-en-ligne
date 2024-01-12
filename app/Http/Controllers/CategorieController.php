@@ -22,13 +22,18 @@ class CategorieController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'categorie' => 'required|max:40'
-        ]);
+        if (Auth::user()->role == "admin") {
+            $request->validate([
+                'category_name' => 'required|max:40'
+            ]);
 
-        Categories::create([
-            'categorie' => $request->category_name
-        ]);
+            Categories::create([
+                'category_name' => $request->category_name
+            ]);
+            return back()->with('message', 'Vous venez de créer une nouvelle catégorie.');
+        } else {
+            return redirect()->route('home')->withErrors(['erreur' => 'OUPS, vous n\'êtes pas admin']);
+        }
     }
 
     /**
@@ -54,7 +59,7 @@ class CategorieController extends Controller
     {
         if (Auth::user()->role == "admin") {
 
-            $categorie = Categories::find($id);
+            $categorie = Categories::findOrFail($id);
 
             $request->validate([
                 'category_name' => 'required|max:40'

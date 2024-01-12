@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categories;
+use App\Models\Discounts;
 use App\Models\Products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -71,7 +72,8 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Products::findOrFail($id);
-        return view('product.show', compact('product'));
+        $discounts = Discounts::all();
+        return view('product.show', compact('product', 'discounts'));
     }
 
     /**
@@ -130,5 +132,41 @@ class ProductController extends Controller
         } else {
             return back()->withErrors(['erreur' => 'suprression du produit impossible']);
         }
+    }
+
+    public function applyDiscount(Request $request, $id)
+    {
+
+        $discount_id = $request->input('discount_id');
+        $discounts = Discounts::findOrFail($discount_id);
+        $product = Products::findorFail($id);
+
+        $price = $product->price;
+        $discount_price = $product->discount_price;
+
+        $now = now();
+        if ($now >= $discounts->start_date && $now <= $discounts->end_date) {
+            $discount_price = $price * (1 - $discounts->discount_percent / 100);
+        } else {
+            $discount_price = 0;
+        }
+
+
+        $product->update([
+            'discount_price' => $discount_price,
+            'discount_id' => $discount_id
+        ]);
+
+        // if ($discount != NULL) {
+
+        //     $discount_id = $request->input('discount_id');
+        //
+        //     $discount_price = $product->price * (1 - $discount->discount_percent / 100);
+        //     $product->update([
+        //         'discount_price' => $discount_price,
+        //         'discount_id' => $discount_id
+        //     ]);
+        // }
+        return back()->with('message', 'Réduction bien ajoutée au produit');
     }
 }

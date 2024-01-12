@@ -17,11 +17,12 @@ return new class extends Migration
             $table->text('description_product');
             $table->string('image');
             $table->decimal('price');
+            $table->decimal('discount_price')->nullable();
             $table->integer('quantity');
             $table->timestamps();
 
             $table->foreignId('category_id')->constrained();
-            $table->foreignId('discount_id')->nullable()->constrained();
+            $table->foreignId('discount_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained();
         });
     }

@@ -4,16 +4,6 @@
 <div class="container-fluid">
     <div class="row">
 
-        {{-- <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                @foreach ($products as $product )
-                    <div class="carousel-item active">
-                        <img class="d-block w-50" src="/storage/uploads/{{$product->image}}" alt="{{$product->title}}">
-                    </div>
-                @endforeach
-            </div>
-          </div> --}}
-
         <div class="col-md-2 mt-5 sticky">
             <h3>Recherche</h3>
             <form action="{{route('home')}}" method="GET" role="search">

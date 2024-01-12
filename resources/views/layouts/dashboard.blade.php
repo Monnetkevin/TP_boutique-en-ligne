@@ -32,17 +32,13 @@
                                 <a href="{{route('admin')}}" class="nav-link px-0 align-middle px-0 text-white">
                                     <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Utilisateur</span></a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{route('productsAdmin')}}" class="nav-link px-0 align-middle px-0 text-white">
-                                    <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Produit</span> </a>
-                            </li>
 
                             <li class="nav-item">
                                 <a href="{{route('categoriesAdmin')}}" class="nav-link px-0 align-middle px-0 text-white">
                                     <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Catégorie</span> </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link px-0 align-middle px-0 text-white">
+                                <a href="{{route('discountsAdmin')}}" class="nav-link px-0 align-middle px-0 text-white">
                                     <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Promotion</span> </a>
                             </li>
                         </ul>

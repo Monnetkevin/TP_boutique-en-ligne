@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categories;
+use App\Models\Discounts;
 use App\Models\Products;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class AdminController extends Controller
         return view('admin.home', compact('users'));
     }
 
-    public function showCategories()
+    public function showCategories(Categories $categorie)
     {
         $categories = Categories::all();
 
@@ -33,5 +34,12 @@ class AdminController extends Controller
         $products = Products::all();
 
         return view('admin.productsAdmin', compact('products'));
+    }
+
+    public function showDiscounts()
+    {
+        $discounts = Discounts::all();
+
+        return view('admin.discountsAdmin', compact('discounts'));
     }
 }
