@@ -37,8 +37,16 @@
                             <img src="/storage/uploads/{{$product->image}}" alt="{{$product->title}}" class="card-img-top">
                             </a>
                             <div class="card-footer border-0 ">
-                                <h5>{{$product->title}}</h5>
-                                <p>{{$product->price}} €</p>
+
+                                @if ($product->discount_id != NULL)
+                                    <h5>{{$product->title}}</h5>
+                                    <s>{{$product->price}} €</s>
+                                    <b class="discount_price">{{$product->discount_price}} €</b>
+
+                                @else
+                                    <h5>{{$product->title}}</h5>
+                                    <p>{{$product->price}} €</p>
+                                @endif
                             </div>
 
                         </div>

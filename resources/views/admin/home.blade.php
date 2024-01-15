@@ -3,7 +3,12 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 mt-5 m-auto">
-                <table class="table">
+
+            <div class="mb-5 text-center">
+               <h3 class="title_user_admin">Liste des utilisateurs inscrit</h3>
+            </div>
+            <div class="table-responsive-sm">
+                <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
                         <th scope="col">#</th>
@@ -40,6 +45,7 @@
                         </tbody>
                     @endforeach
                 </table>
+            </div>
         </div>
     </div>
 </div>

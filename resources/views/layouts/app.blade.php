@@ -60,15 +60,9 @@
                         @else
 
                         <!-- icon shopping -->
-                            <div class="d-flex align-items-center">
-                                <a href="">
-                                    @icon('fas fa-shopping-cart')
-                                </a>
-                            </div>
-
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                  <span><i class="fas fa-shopping-cart"></i></span>
+                                <a class="nav-link" href="{{route('basket.show')}}">
+                                    @icon('fas fa-shopping-cart')
                                   <span class="badge badge-pill bg-danger">0</span>
                                 </a>
                               </li>

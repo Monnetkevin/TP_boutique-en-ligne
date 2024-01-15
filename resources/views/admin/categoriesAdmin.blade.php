@@ -23,8 +23,8 @@
                     </div>
                 </div>
             </div>
-
-                <table class="table">
+                <div class="table-responsable-md">
+                <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
                         <th scope="col">Id</th>
@@ -72,6 +72,7 @@
                         </tbody>
                     @endforeach
                 </table>
+            </div>
         </div>
     </div>
 </div>

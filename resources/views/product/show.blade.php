@@ -25,13 +25,21 @@
                     @if ($product->discount_id != NULL)
                         <div class="my-5">
                             <hr class="hr" />
-                            <b>Réduction de : </b><p></p>
+                            <b>Nouveau Prix suite à la réduction de </b><p class="discount_price">{{$product->discount_price}} €</p>
                         </div>
                     @endif
+                    <div class="input-group mb-5">
+                        <input type="number" name="quantity" placeholder="Quantité ?" class="form-control" value="{{ isset(session('basket')[$product->id]) ? session('basket')[$product->id]['quantity'] : null }}" >
+                        <form action="{{route('basket.add', $product)}}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-dark rounded-pill ms-4">Ajouter au panier</button>
+                        </form>
+                    </div>
 
-                    <button class="btn btn-dark rounded-pill">Ajouter au panier</button>
 
                     @if (Auth::user()->role == "admin")
+                    <div class="">
+
 
                         <button type="button" class="btn btn-success rounded-pill shadow-sm" data-bs-toggle="modal" data-bs-target="#ModalEditProduct">Editer</button>
                         <div class="modal fade" id="ModalEditProduct" tabindex="-1" aria-labelledby="ModalEditProductLabel" aria-hidden="true">
@@ -111,8 +119,8 @@
                                 </div>
                             </div>
                         </div>
-
                     @endif
+                </div>
                 </div>
             </div>
         </div>

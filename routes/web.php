@@ -27,7 +27,13 @@ Route::get('/admin/discountsAdmin', [App\Http\Controllers\AdminController::class
 
 
 Route::resource('/products', App\Http\Controllers\ProductController::class);
-Route::patch('products/{id}/applyDiscount', [App\Http\Controllers\ProductController::class, 'applyDiscount'])->name('products.applyDiscount')->middleware('admin');
+Route::patch('/products/{id}/applyDiscount', [App\Http\Controllers\ProductController::class, 'applyDiscount'])->name('products.applyDiscount')->middleware('admin');
 Route::resource('/categories', App\Http\Controllers\CategorieController::class);
 Route::resource('/discounts', App\Http\Controllers\DiscountController::class);
 Route::resource('/users', App\Http\Controllers\UserController::class);
+
+//Route panier
+Route::get('/basket', [App\Http\Controllers\BasketController::class, 'show'])->name('basket.show');
+Route::post('/basket/add/{product}', [App\Http\Controllers\BasketController::class, 'add'])->name('basket.add');
+Route::get('/basket/remove/{product}', [App\Http\Controllers\BasketController::class, 'remove'])->name('basket.remove');
+Route::get('/basket/empty', [App\Http\Controllers\BasketController::class, 'empty'])->name('basket.empty');

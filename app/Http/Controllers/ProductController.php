@@ -40,7 +40,7 @@ class ProductController extends Controller
             'category_id' => 'required',
             'quantity' => 'required|integer',
             'price' => 'required|integer',
-            'image' => 'max:3000|image|mimes:jpeg,png,jpg,svg',
+            'image' => 'required|max:3000|image|mimes:jpg,jpeg,png,bmp,gif,svg,webp,pdf,docx',
             // 'discount_id' => 'nullable'
         ]);
 
@@ -63,7 +63,7 @@ class ProductController extends Controller
             // 'discount_id' => $request->discount_id,
         ]);
 
-        return redirect()->route('admin')->with('message', 'Votre produit a été ajouté avec succès');
+        return redirect()->route('home')->with('message', 'Votre produit a été ajouté avec succès');
     }
 
     /**
@@ -91,7 +91,7 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
 
             $request->validate([
-                'image' => 'required|max:3000|image|mimes:jpeg,png,jpg,svg'
+                'image' => 'required|max:3000|image|mimes:jpg,jpeg,png,bmp,gif,svg,webp,pdf,docx'
             ]);
 
             $fileLink = 'public/uploads/' . $product->image;
@@ -138,35 +138,29 @@ class ProductController extends Controller
     {
 
         $discount_id = $request->input('discount_id');
-        $discounts = Discounts::findOrFail($discount_id);
+        $discount = Discounts::findOrFail($discount_id);
         $product = Products::findorFail($id);
 
         $price = $product->price;
         $discount_price = $product->discount_price;
 
         $now = now();
-        if ($now >= $discounts->start_date && $now <= $discounts->end_date) {
-            $discount_price = $price * (1 - $discounts->discount_percent / 100);
+        if ($now >= $discount->start_date && $now <= $discount->end_date) {
+            $discount_price = $price * (1 - $discount->discount_percent / 100);
+
+            $product->update([
+                'discount_price' => $discount_price,
+                'discount_id' => $discount_id
+            ]);
+            return back()->with('message', 'Réduction bien ajoutée au produit');
         } else {
-            $discount_price = 0;
+            $discount_price = NULL;
+            $discount_id = NULL;
+            $product->update([
+                'discount_price' => $discount_price,
+                'discount_id' => $discount_id
+            ]);
+            return back()->withErrors(['erreur' => 'La date de la réduction est dépassé']);
         }
-
-
-        $product->update([
-            'discount_price' => $discount_price,
-            'discount_id' => $discount_id
-        ]);
-
-        // if ($discount != NULL) {
-
-        //     $discount_id = $request->input('discount_id');
-        //
-        //     $discount_price = $product->price * (1 - $discount->discount_percent / 100);
-        //     $product->update([
-        //         'discount_price' => $discount_price,
-        //         'discount_id' => $discount_id
-        //     ]);
-        // }
-        return back()->with('message', 'Réduction bien ajoutée au produit');
     }
 }

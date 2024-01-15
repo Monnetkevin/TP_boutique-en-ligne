@@ -37,17 +37,23 @@ class HomeController extends Controller
         //     $images = collect(); // Si aucun article n'est trouvé, initialisez une collection vide
         // }
 
-        $products = Products::query()
-            ->when(
-                $request->q,
-                function (Builder $builder) use ($request) {
-                    $builder
-                        ->Where('category_id', 'like', "%{$request->q}%")
-                        ->orderBy('title')
-                        ->get();
-                }
-            )
-            ->paginate(12);
+
+        if ($request->q) {
+            $products = Products::query()
+                ->when(
+                    $request->q,
+                    function (Builder $builder) use ($request) {
+                        $builder
+                            ->Where('category_id', 'like', "%{$request->q}%")
+                            ->orderBy('title')
+                            ->get();
+                    }
+                )
+                ->paginate(12);
+        } else {
+            $products = Products::orderBy('title', 'asc')->paginate(12);
+        }
+
 
         $categories = Categories::all();
         $discounts = Discounts::all();

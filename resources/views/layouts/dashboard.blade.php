@@ -19,27 +19,31 @@
 <body>
     <div id="app">
         <div class="container-fluid">
-            <div class="row flex-nowrap">
+            <div class="row">
                 <div class="col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
                     <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                             <li class="nav-item">
                                 <a href="{{route('home')}}" class="nav-link align-middle px-0 text-white">
-                                    <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Accueil</span>
+                                    @icon('fa-light fa-house')
+                                    <span class="ms-1 d-none d-sm-inline">Accueil</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('admin')}}" class="nav-link px-0 align-middle px-0 text-white">
-                                    <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Utilisateur</span></a>
+                                    @icon('fa-regular fa-user')
+                                    <span class="ms-1 d-none d-sm-inline">Utilisateur</span></a>
                             </li>
 
                             <li class="nav-item">
                                 <a href="{{route('categoriesAdmin')}}" class="nav-link px-0 align-middle px-0 text-white">
-                                    <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Catégorie</span> </a>
+                                    @icon('fa-solid fa-table')
+                                    <span class="ms-1 d-none d-sm-inline">Catégorie</span> </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('discountsAdmin')}}" class="nav-link px-0 align-middle px-0 text-white">
-                                    <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Promotion</span> </a>
+                                    @icon('fa-light fa-rectangle-ad')
+                                    <span class="ms-1 d-none d-sm-inline">Promotion</span> </a>
                             </li>
                         </ul>
                         <hr>
@@ -47,8 +51,7 @@
                 </div>
 
 
-
-                <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <main class="col-md-8 px-sm-auto col-lg-10 px-md-4">
                         <div class="container text-center">
                             @if (session()->has('message'))
                                 <p class="alert alert-success">{{session()->get('message')}}</p>
